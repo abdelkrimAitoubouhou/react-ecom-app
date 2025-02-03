@@ -1,0 +1,15 @@
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* Adjust gap between cards if needed */
+    padding: 4rem 3rem 3rem 3rem;
+}
+
+.product-list .mdb-row {
+    width: 100%;
+}
+
+.product-list .mdb-col {
+    flex: 1;
+    min-width: 250px; /* Adjust minimum width as needed */
+}

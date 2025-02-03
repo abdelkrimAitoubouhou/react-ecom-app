@@ -1,0 +1,21 @@
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25vh;
+}
+
+.form-add-product {
+    padding-top: 50px;
+    padding-left: 300px;
+    padding-right: 300px;
+}
+
+.text-red-500 {
+    color: red;
+}
+
+body {
+    background: radial-gradient(circle, rgba(238,174,174,1) 0%, rgba(148,187,233,1) 100%);
+}
+

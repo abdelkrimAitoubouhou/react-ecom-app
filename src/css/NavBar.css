@@ -1,0 +1,13 @@
+/* Style the navigation bar */
+.navbar {
+    position: fixed; /* Make the navbar fixed */
+    top: 0; /* Fix it at the top of the page */
+    width: 100%; /* Make it take the full width of the page */
+    background-color: #333; /* Set background color */
+    color: white; /* Set text color */
+    padding: 10px 20px; /* Add some padding */
+    z-index: 1000; /* Ensure it stays on top of other content */
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space out items */
+    align-items: center; /* Center items vertically */
+}

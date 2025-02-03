@@ -1,0 +1,22 @@
+.form-background {
+    background: radial-gradient(circle, rgba(238,174,174,1) 0%, rgba(148,187,233,1) 100%);
+}
+
+.my-4 {
+    background: radial-gradient(circle, rgba(238,174,174,1) 0%, rgba(148,187,233,1) 100%);
+    margin-bottom: 2.5rem !important;
+    border: none;
+
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+    width: 70%;
+    margin-left: 75px;
+}
+
+
+
+.g-0 {
+    padding: 0 6rem 0 6rem !important
+}
