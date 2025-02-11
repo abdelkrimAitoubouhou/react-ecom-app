@@ -1,92 +1,139 @@
-import React from 'react';
-import {Button, Col, Form, Row} from 'react-bootstrap';
-import {useForm} from 'react-hook-form';
-import {zodResolver} from '@hookform/resolvers/zod';
-import {z} from 'zod';
-import {addProduct} from '../axios/App';
-import {useMutation, useQueryClient} from 'react-query';
+import React from "react";
+import { Button, Form } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { addProduct } from "../axios/App";
+import { useMutation, useQueryClient } from "react-query";
+import "../css/addProduct.css";
+import InputGroup from "react-bootstrap/InputGroup";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 // Define the schema
 const schema = z.object({
-    model: z.string()
-        .nonempty({message: "Model is required"})
-        .min(5, {message: "Please type at least 5 letters"}),
-    price: z.number().min(0, {message: "Price must be a positive number"}),
-    qte: z.number().min(0, {message: "Quantity must be a positive number"}),
+  model: z
+    .string()
+    .nonempty({ message: "Product's name is required" })
+    .min(5, { message: "Please type at least 5 letters" }),
+  price: z
+    .string()
+    .nonempty({ message: "Price is required" })
+    .transform((val) => parseFloat(val))
+    .refine((val) => val > 0, { message: "Price must be positive" }),
+  qte: z
+    .string()
+    .nonempty({ message: "Quantity is required" })
+    .transform((val) => parseInt(val))
+    .refine((val) => val > 0, {
+      message: "Quantity must be positive",
+    }),
+  features: z
+    .string()
+    .nonempty({ message: "Features are required" })
+    .min(5, { message: "Please type at least 5 letters" }),
 });
 
 const AddProduct = () => {
-    const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-    // Initialize the form with react-hook-form and zod resolver
-    const {
-        register,
-        handleSubmit,
-        setError,
-        formState: {errors, isSubmitting}
-    } = useForm({
-        resolver: zodResolver(schema),
-    });
+  // Initialize the form with react-hook-form and zod resolver
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
 
-    const addMutation = useMutation(
-        newProduct => addProduct(newProduct), {
-            onSuccess: () => {
-                queryClient.invalidateQueries('products');
-                console.log("Product has been saved successfully");
-            },
-            onError: (error) => {
-                console.log("Error saving this product: ", error);
-            }
-        }
-    );
+  const addMutation = useMutation((newProduct) => addProduct(newProduct), {
+    onSuccess: () => {
+      queryClient.invalidateQueries("products");
+      console.log("Product has been saved successfully");
+    },
+    onError: (error) => {
+      console.log("Error saving this product: ", error);
+    },
+  });
 
-    const onSubmit = async (data) => {
-        try {
-            await addMutation.mutateAsync(data);
-        } catch (error) {
-            setError("root", {message: "Failed to add product"});
-        }
-    };
+  const onSubmit = async (data) => {
+    try {
+      await addMutation.mutateAsync(data);
+    } catch (error) {
+      setError("root", { message: "Failed to add product" });
+    }
+  };
 
-    return (
-        <Form className="form-add-product" onSubmit={handleSubmit(onSubmit)}>
-            <Row className="mb-3">
-                <Form.Group as={Col} controlId="formGridModel">
-                    <Form.Label>Product Name</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter product's name"
-                        {...register("model")}
-                    />
-                    {errors.model && <div className="text-red-500">{errors.model.message}</div>}
-                </Form.Group>
+  return (
+    <div className="form-container">
+      <Form
+        className="form-add-product"
+        noValidate
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <Row className="mb-3">
+          <Form.Group as={Col} md="4" controlId="validationCustom01">
+            <Form.Label>Model</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder=" Product's name"
+              {...register("model")}
+              isInvalid={!!errors.model}
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.model?.message}
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group as={Col} md="4" controlId="">
+            <Form.Label>Price</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder=" Product's price"
+              {...register("price")}
+              isInvalid={!!errors.price}
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.price?.message}
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group as={Col} md="4" controlId="">
+            <Form.Label>Quantity</Form.Label>
+            <InputGroup hasValidation>
+              <Form.Control
+                type="number"
+                placeholder=" Product's quantity"
+                aria-describedby="inputGroupPrepend"
+                {...register("qte")}
+                isInvalid={!!errors.qte}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.qte?.message}
+              </Form.Control.Feedback>
+            </InputGroup>
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col} md="6" controlId="validationCustom03">
+            <Form.Label>Features</Form.Label>
 
-                <Form.Group as={Col} controlId="formGridPrice">
-                    <Form.Label>Price</Form.Label>
-                    <Form.Control
-                        type="number"
-                        placeholder="Enter product's price"
-                        {...register("price", {valueAsNumber: true})}
-                    />
-                    {errors.price && <div className="text-red-500">{errors.price.message}</div>}
-                </Form.Group>
-            </Row>
-
-            <Form.Group className="mb-3" controlId="formGridQuantity">
-                <Form.Label>Quantity</Form.Label>
-                <Form.Control
-                    type="number"
-                    placeholder="Enter product's quantity"
-                    {...register("qte", {valueAsNumber: true})}
-                />
-                {errors.qte && <div className="text-red-500">{errors.qte.message}</div>}
-            </Form.Group>
-
-            <Button variant="success" type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Adding..." : "Add"}
-            </Button>
-        </Form>
-    );
-}
+            <Form.Control
+              type="text"
+              placeholder=" Product's features"
+              {...register("features")}
+              isInvalid={!!errors.features}
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.features?.message}
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Row>
+        <Button variant="success" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Adding..." : "Add"}
+        </Button>
+      </Form>
+    </div>
+  );
+};
 
 export default AddProduct;

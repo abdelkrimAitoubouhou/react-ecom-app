@@ -8,7 +8,7 @@ import Login from "./auth/Login";
 import {useEffect, useState} from "react";
 import {jwtDecode} from 'jwt-decode';
 import SignUp from "./auth/SignUp";
-import NavBar from "./components/NavBar/NavBar";
+import NavBar from "./components/navBar/NavBar";
 
 function App() {
     const [token, setToken] = useState(null);

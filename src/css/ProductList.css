@@ -2,7 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 16px; /* Adjust gap between cards if needed */
-    padding: 4rem 3rem 3rem 3rem;
+    padding: 2.3rem 3rem 3rem 3rem;
 }
 
 .product-list .mdb-row {
@@ -12,4 +12,21 @@
 .product-list .mdb-col {
     flex: 1;
     min-width: 250px; /* Adjust minimum width as needed */
+}
+
+.g-4, .gy-4 {
+    --bs-gutter-y: 0.5rem !important;
+}
+
+.g-4, .gx-4 {
+    --bs-gutter-x: 0.5rem !important;
+}
+
+.col-md-4 {
+    flex: 0 0 auto;
+    width: 20% !important;
+}
+
+.card {
+    height: 82% !important;
 }

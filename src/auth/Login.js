@@ -43,7 +43,7 @@ const Login = ({onLogin}) => {
         }
     };
 
-    return (<MDBContainer fluid className=" login-container" style={{marginTop: '2rem'}}>
+    return (<MDBContainer fluid className="login-container" style={{marginTop: '2.6rem'}}>
         <form onSubmit={handleSubmit(onSubmit)}>
             <MDBRow>
                 <MDBCol col='10' md='6'>

@@ -11,3 +11,16 @@
     justify-content: space-between; /* Space out items */
     align-items: center; /* Center items vertically */
 }
+
+
+.svg-inline--fa {
+    height: 0.85em !important;
+ 
+}
+
+.navbar-container {
+    background-color: #f4f4f5;
+    position: fixed;
+    height: 10% !important;
+    width: 100%;
+}
