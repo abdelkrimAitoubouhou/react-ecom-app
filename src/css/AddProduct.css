@@ -8,19 +8,21 @@
 .form-add-product {
     padding-top: 7rem;
     padding-left: 0rem;
-    margin-left: 20rem;
+    padding-right: 0 !important;
+    margin-left: 25rem;
+   
 }
 
-.title {
+.add-title {
     color: darkblue;
     font-family: cursive;
     position: relative;
-    left: 10rem;
+    left: 7rem;
     text-decoration: underline;
-    max-width: 22%;
+    max-width: 25%;
 }
 
-.row {
+.addRow {
     --bs-gutter-x: 0.5rem;
     --bs-gutter-y: 0;
 }

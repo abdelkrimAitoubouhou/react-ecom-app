@@ -2,7 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 16px; /* Adjust gap between cards if needed */
-    padding: 2.3rem 3rem 3rem 3rem;
+    padding: 3rem 1rem 3rem 1rem;
 }
 
 .product-list .mdb-row {
@@ -15,11 +15,11 @@
 }
 
 .g-4, .gy-4 {
-    --bs-gutter-y: 0.5rem !important;
+    --bs-gutter-y: -4rem !important;
 }
 
 .g-4, .gx-4 {
-    --bs-gutter-x: 0.5rem !important;
+    --bs-gutter-x: 0.9rem !important;
 }
 
 .col-md-4 {
@@ -29,4 +29,13 @@
 
 .card {
     height: 82% !important;
+}
+
+.list-title {
+    color: darkblue;
+    font-family: cursive;
+    position: relative;
+    text-align: center;
+    text-decoration: underline;
+    max-width: 25%;
 }

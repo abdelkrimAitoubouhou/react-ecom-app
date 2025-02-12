@@ -8,3 +8,35 @@
     margin-bottom: 8%;
 
 }
+
+.form-container {
+    max-height: 100%;
+    background-color: #dadada;
+    padding-bottom: 14rem;
+}
+
+
+.form-update-product {
+    padding-top: 7rem;
+    padding-left: 0rem;
+    margin-left: 22rem;
+}
+
+.title {
+    color: darkblue;
+    font-family: cursive;
+    position: relative;
+    left: 7.5rem;
+    text-decoration: underline;
+    max-width: 23%;
+}
+
+.row {
+    --bs-gutter-x: 0.5rem;
+    --bs-gutter-y: 0;
+}
+
+
+.text-red-500 {
+    color: #dc3810;
+}

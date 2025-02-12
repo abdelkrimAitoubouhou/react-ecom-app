@@ -77,13 +77,13 @@ const AddProduct = () => {
         noValidate
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h2 className="title">
+        <h2 className="add-title">
           <b>Add Products</b>
         </h2>
         <br></br>
         <br></br>
 
-        <Row className="mb-3">
+        <Row className="mb-3 addRow">
           <Form.Group as={Col} md="4" controlId="validationCustom01">
             <Form.Label>Model</Form.Label>
             <Form.Control
@@ -110,10 +110,10 @@ const AddProduct = () => {
           </Form.Group>
           <Form.Group as={Col} md="4" controlId="">
             <Form.Label>Quantity</Form.Label>
-            <InputGroup hasValidation>
+            <InputGroup hasValidation style={{ width: "48%" }}>
               <Form.Control
                 type="number"
-                placeholder=" Product's quantity"
+                placeholder="qte"
                 aria-describedby="inputGroupPrepend"
                 {...register("qte")}
                 isInvalid={!!errors.qte}
@@ -124,7 +124,7 @@ const AddProduct = () => {
             </InputGroup>
           </Form.Group>
         </Row>
-        <Row className="mb-3">
+        <Row className="mb-3 addRow">
           <Form.Group as={Col} md="6" controlId="validationCustom03">
             <Form.Label>Features</Form.Label>
 

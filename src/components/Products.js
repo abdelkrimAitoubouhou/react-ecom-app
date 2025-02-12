@@ -109,6 +109,10 @@ const Products = () => {
       <ReactQueryDevtools />
 
       <div className="product-list">
+      <h2 className="list-title">
+          <b> Products List</b>
+        </h2>
+        <br></br>
         <MDBRow className="g-4">
           {products.map((product) => (
             <MDBCol md="4" key={product.id} style={{ maxWidth: "24%" }}>

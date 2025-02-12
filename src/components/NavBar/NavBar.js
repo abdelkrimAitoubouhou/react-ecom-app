@@ -55,7 +55,7 @@ const Navbar = () => {
           }}
         >
           <MDBNavbarBrand style={{ marginLeft: "0 !important" }}>
-            <img src={logo} height="30" alt="logo" />
+            <img src={logo} height="30" alt="logo"  onClick={() => navigate('/products')}/>
           </MDBNavbarBrand>
         </div>
 

@@ -8,22 +8,30 @@ import { getProductById, updateProduct } from "../axios/App";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import Spinner from "react-bootstrap/Spinner";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import InputGroup from "react-bootstrap/InputGroup";
 
 // Define the schema
 const schema = z.object({
   model: z
     .string()
-    .nonempty({ message: "Model is required" })
+    .nonempty({ message: "Product's name is required" })
     .min(5, { message: "Please type at least 5 letters" }),
-  price: z.number().min(0, { message: "Price must be a positive number" }),
-  qte: z.number().min(0, { message: "Quantity must be a positive number" }),
-  status: z.string().nonempty({ message: "Status is required" }),
+  price: z
+    .string()
+    .nonempty({ message: "Price is required" })
+    .transform((val) => parseFloat(val))
+    .refine((val) => val > 0, { message: "Price must be positive" }),
+  qte: z
+    .string()
+    .nonempty({ message: "Quantity is required" })
+    .transform((val) => parseInt(val))
+    .refine((val) => val > 0, {
+      message: "Quantity must be positive",
+    }),
   features: z
-  .string()
-  .nonempty({ message: "Features are required" })
-  .min(5, { message: "Please type at least 5 letters" }),
+    .string()
+    .nonempty({ message: "Features are required" })
+    .min(5, { message: "Please type at least 5 letters" }),
 });
 
 const UpdateProduct = ({ productId }) => {
@@ -98,76 +106,82 @@ const UpdateProduct = ({ productId }) => {
 
   return (
     <>
-      <Form className="form-update" onSubmit={handleSubmit(onSubmit)}>
-       
-        <Box
-          component="form"
-          sx={{ "& .MuiTextField-root": { m: 1, width: "25ch" } }}
+      <div className="form-container">
+        <Form
+          className="form-update-product"
           noValidate
-          autoComplete="off"
+          onSubmit={handleSubmit(onSubmit)}
         >
-          <div>
-            <TextField
-              helperText="Please Product's name"
-              id="demo-helper-text-aligned-no-helper"
-              {...register("model")}
-            />
-            {errors.model && (
-              <div className="text-red-500">{errors.model.message}</div>
-            )}
+          <h2 className="title">
+            <b>Edit Products</b>
+          </h2>
+          <br></br>
+          <br></br>
 
-            <TextField
-              helperText="Please Product's price"
-              type="number"
-              id="demo-helper-text-aligned-no-helper"
-              {...register("price", { valueAsNumber: true })}
-            />
-            {errors.price && (
-              <div className="text-red-500">{errors.price.message}</div>
-            )}
+          <Row className="mb-3 upd-row">
+            <Form.Group as={Col} md="4" controlId="validationCustom01">
+              <Form.Label>Model</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder=" Product's name"
+                {...register("model")}
+                isInvalid={!!errors.model}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.model?.message}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="4" controlId="">
+              <Form.Label>Price</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder=" Product's price"
+                {...register("price")}
+                isInvalid={!!errors.price}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.price?.message}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="4" controlId="">
+              <Form.Label>Quantity</Form.Label>
+              <InputGroup hasValidation style={{ width: "48%" }}>
+                <Form.Control
+                  type="number"
+                  placeholder=" Product's quantity"
+                  aria-describedby="inputGroupPrepend"
+                  {...register("qte")}
+                  isInvalid={!!errors.qte}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.qte?.message}
+                </Form.Control.Feedback>
+              </InputGroup>
+            </Form.Group>
+          </Row>
+          <Row className="mb-3">
+            <Form.Group as={Col} md="6" controlId="validationCustom03">
+              <Form.Label>Features</Form.Label>
 
-            <TextField
-              helperText="Please Product's quantity"
-              type="number"
-              id="demo-helper-text-aligned-no-helper"
-              {...register("qte", { valueAsNumber: true })}
-            />
-            {errors.qte && (
-              <div className="text-red-500">{errors.qte.message}</div>
-            )}
-
-            <TextField
-              helperText="Please Product's status"
-              type="text"
-              id="demo-helper-text-aligned-no-helper"
-              {...register("status")}
-            />
-            {errors.status && (
-              <div className="text-red-500">{errors.status.message}</div>
-            )}
-
-
-            <TextField
-              helperText="Please Product's features"
-              type="text"
-              id="demo-helper-text-aligned-no-helper"
-              multiline
-              {...register("features")}
-            />
-            {errors.features && (
-              <div className="text-red-500">{errors.features.message}</div>
-            )}
-
-          </div>
-        </Box>
-
-        <Button variant="primary" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Updating..." : "Update Product"}
-        </Button>
-        {errors.root && (
-          <div className="text-red-500">{errors.root.message}</div>
-        )}
-      </Form>
+              <Form.Control
+                type="text"
+                placeholder=" Product's features"
+                {...register("features")}
+                isInvalid={!!errors.features}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.features?.message}
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Row>
+          <Button variant="primary" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Updating..." : "Edit"}
+          </Button>
+          {errors.root && (
+            <div className="text-red-500">{errors.root.message}</div>
+          )}
+        </Form>
+      </div>
     </>
   );
 };
