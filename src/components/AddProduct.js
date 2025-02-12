@@ -60,6 +60,11 @@ const AddProduct = () => {
   const onSubmit = async (data) => {
     try {
       await addMutation.mutateAsync(data);
+      data.model = "";
+      data.price = "";
+      data.qte = "";
+      data.features = "";
+      console.log(data);
     } catch (error) {
       setError("root", { message: "Failed to add product" });
     }
@@ -72,6 +77,12 @@ const AddProduct = () => {
         noValidate
         onSubmit={handleSubmit(onSubmit)}
       >
+        <h2 className="title">
+          <b>Add Products</b>
+        </h2>
+        <br></br>
+        <br></br>
+
         <Row className="mb-3">
           <Form.Group as={Col} md="4" controlId="validationCustom01">
             <Form.Label>Model</Form.Label>
