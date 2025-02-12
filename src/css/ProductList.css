@@ -29,12 +29,13 @@
 
 .card {
     height: 82% !important;
+    position: unset !important;
 }
 
 .list-title {
     color: darkblue;
     font-family: cursive;
-    position: relative;
+    position: unset;
     text-align: center;
     text-decoration: underline;
     max-width: 25%;

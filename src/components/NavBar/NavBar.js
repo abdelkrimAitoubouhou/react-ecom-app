@@ -44,11 +44,10 @@ const Navbar = () => {
   };
 
   return (
-    <React.Fragment>
+    <React.Fragment style= {{position: 'fixed'}}>
       <div  className= 'navbar-container'>
         <div
           style={{
-            marginTop: "14px",
             marginLeft: "20px",
             position: "fixed",
             maxHeight: 30,

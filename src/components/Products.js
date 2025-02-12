@@ -110,7 +110,7 @@ const Products = () => {
 
       <div className="product-list">
       <h2 className="list-title">
-          <b> Products List</b>
+          <b>Nos Produits</b>
         </h2>
         <br></br>
         <MDBRow className="g-4">
@@ -125,18 +125,18 @@ const Products = () => {
                 />
                 <MDBCardBody>
                   <MDBCardTitle
-                    style={{ position: "relative", bottom: "13px" }}
+                    style={{ marginTop: '-0.8rem', marginBottom: '0.5rem' }}
                   >
                     {product.model}
                   </MDBCardTitle>
                   <MDBCardText>
-                    <p style={{ position: "relative", bottom: "17px" }}>
+                    <p style={{paddingBottom: '0.9rem'}}>
                       {product.features}
                       <br></br>
                       <b>{product.price}$ </b>
                     </p>
-                  </MDBCardText>
-                  <IconButton
+
+                    <IconButton
                     style={{
                       position: "relative",
                       bottom: "60px",
@@ -145,12 +145,15 @@ const Products = () => {
                   >
                     <AddShoppingCartIcon fontSize="small"></AddShoppingCartIcon>
                   </IconButton>
+                  </MDBCardText>
+                  
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>
           ))}
         </MDBRow>
       </div>
+
 
       <table className="table table-striped">
         <thead className="table-header">
@@ -173,7 +176,7 @@ const Products = () => {
               <td style={{ width: "100px" }}>{product.features}</td>
               <td style={{ width: "50px" }}>
                 <button
-                  style={{ position: "relative", right: "5px" }}
+                  style={{ position: "", right: "5px" }}
                   onClick={() => handleDeleteButton(product.id)}
                   className="btn btn-outline-danger"
                 >
@@ -191,6 +194,7 @@ const Products = () => {
           ))}
         </tbody>
       </table>
+
 
       <div>
         <button
