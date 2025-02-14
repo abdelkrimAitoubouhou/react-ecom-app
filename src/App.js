@@ -49,17 +49,23 @@ const MainApp = ({token, handleLogin}) => {
         return <UpdateProduct productId={productId}/>;
     };
 
+
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const handleSearch = (query) => {
+      setSearchQuery(query);
+    };
     return (
 
         <>
-                {shouldShowNavBar && <NavBar/>}
+                {shouldShowNavBar && <NavBar onSearch={handleSearch}/>}
                 <Routes>
-                    <Route path="/home" element={token ? <Products/> : <Navigate to="/login"/>}/>
-                    <Route path="/" element={token ? <Products/> : <Navigate to="/login"/>}/>
+                    <Route path="/home" element={token ? <Products searchQuery={searchQuery}/> : <Navigate to="/login"/>}/>
+                    <Route path="/" element={token ? <Products searchQuery={searchQuery}/> : <Navigate to="/login"/>}/>
                     <Route path="/add-product" element={token ? <AddProduct/> : <Navigate to="/login"/>}/>
                     <Route path="/update-product/:productId"
                            element={token ? <UpdateProductWrapper/> : <Navigate to="/login"/>}/>
-                    <Route path="/products" element={token ? <Products/> : <Navigate to="/login"/>}/>
+                    <Route path="/products" element={token ? <Products searchQuery={searchQuery}/> : <Navigate to="/login"/>}/>
                     <Route path="/login" element={<Login onLogin={handleLogin}/>}/>
                     <Route path="/sign-up" element={<SignUp/>}/>
                 </Routes>

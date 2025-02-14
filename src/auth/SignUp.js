@@ -68,7 +68,7 @@ const SignUp = () => {
                                                     {...register("firstName")}/>
                                             </MDBCol>
 
-                                            <MDBCol md='6' style={{marginLeft: "-9px", width: "37%"}}>
+                                            <MDBCol md='6' style={{marginLeft: "-3px", width: "37%"}}>
                                                 <MDBInput
                                                     className='w-100'
                                                     wrapperClass='mb-3'

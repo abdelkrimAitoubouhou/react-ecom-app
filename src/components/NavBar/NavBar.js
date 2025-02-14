@@ -21,7 +21,7 @@ import { MDBNavbarBrand } from "mdb-react-ui-kit";
 import logo from "./brandLogo.png";
 import "../../css/navBar.css";
 
-const Navbar = () => {
+const Navbar = ({ onSearch }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
@@ -43,9 +43,17 @@ const Navbar = () => {
     navigate("/sign-up");
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
+  const handleSearchInputChange = (event) => {
+    onSearch(event.target.value);
+  };
+
   return (
-    <React.Fragment style= {{position: 'fixed'}}>
-      <div  className= 'navbar-container'>
+    <React.Fragment style={{ position: "fixed" }}>
+      <div className="navbar-container">
         <div
           style={{
             marginLeft: "20px",
@@ -54,7 +62,12 @@ const Navbar = () => {
           }}
         >
           <MDBNavbarBrand style={{ marginLeft: "0 !important" }}>
-            <img src={logo} height="30" alt="logo"  onClick={() => navigate('/products')}/>
+            <img
+              src={logo}
+              height="30"
+              alt="logo"
+              onClick={() => navigate("/products")}
+            />
           </MDBNavbarBrand>
         </div>
 
@@ -73,11 +86,13 @@ const Navbar = () => {
             border: "1.5px solid",
             borderColor: "#3a4c90",
           }}
+          onSubmit={handleSubmit} // pour ne pas actualiser la page 
         >
           <InputBase
             sx={{ ml: 1, flex: 1, marginLeft: "8px !important" }}
             placeholder="Search Product "
             inputProps={{ "aria-label": "search products" }}
+            onChange={handleSearchInputChange}
           />
           <IconButton
             type="button"

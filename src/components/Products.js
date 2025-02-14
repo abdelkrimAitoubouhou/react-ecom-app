@@ -25,7 +25,7 @@ import {
 } from "mdb-react-ui-kit";
 import { IconButton } from "@mui/material";
 
-const Products = () => {
+const Products = ({ searchQuery }) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -104,6 +104,11 @@ const Products = () => {
     });
   };
 
+   // Filter products based on search query
+   const filteredProducts = products.filter(product =>
+    product.model.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="product-list" style={{ backgroundColor: "#ced2e1" }}>
       <ReactQueryDevtools />
@@ -114,11 +119,11 @@ const Products = () => {
         </h2>
         <br></br>
         <MDBRow className="g-4">
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <MDBCol md="4" key={product.id} style={{ maxWidth: "24%" }}>
               <MDBCard className="">
                 <MDBCardImage
-                  style={{ height: "247px" }}
+                  
                   src="https://images.unsplash.com/photo-1710023038502-ba80a70a9f53?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="..."
                   position="top"
@@ -130,7 +135,7 @@ const Products = () => {
                     {product.model}
                   </MDBCardTitle>
                   <MDBCardText>
-                    <p style={{paddingBottom: '0.9rem'}}>
+                    <p style={{paddingBottom: '1.9rem'}}>
                       {product.features}
                       <br></br>
                       <b>{product.price}$ </b>
@@ -139,8 +144,8 @@ const Products = () => {
                     <IconButton
                     style={{
                       position: "relative",
-                      bottom: "60px",
-                      left: "88%",
+                      bottom: "70px",
+                      left: "90%",
                     }}
                   >
                     <AddShoppingCartIcon fontSize="small"></AddShoppingCartIcon>
@@ -167,7 +172,7 @@ const Products = () => {
           </tr>
         </thead>
         <tbody className="table-body">
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <tr key={product.id}>
               <td style={{ width: "100px" }}>{product.model}</td>
               <td style={{ width: "100px" }}>{product.price + " $"}</td>
@@ -176,7 +181,7 @@ const Products = () => {
               <td style={{ width: "100px" }}>{product.features}</td>
               <td style={{ width: "50px" }}>
                 <button
-                  style={{ position: "", right: "5px" }}
+                  style={{ position: "relative", right: "5px" }}
                   onClick={() => handleDeleteButton(product.id)}
                   className="btn btn-outline-danger"
                 >
